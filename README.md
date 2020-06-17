@@ -36,3 +36,9 @@
        ```
        curl -X GET -H 'Accept: application/json' -H 'Content-Type: application/json' -i http://localhost/snappfood/public/api/operators/4/pick
        ```
+
+### Information
+
+**Start Time:** 11:15
+
+**End Time:** 15:00
