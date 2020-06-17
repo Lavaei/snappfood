@@ -18,7 +18,7 @@
         }'
         ```
        
-   0. Create new operator with given priority (you can use any positive integer value):
+   0. Create a new operator with given priority (you can use any positive integer value):
        ```
        curl -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -i http://localhost/snappfood/public/api/operators --data '{
          "priority" : 3
