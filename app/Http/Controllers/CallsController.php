@@ -11,8 +11,9 @@ class CallsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return Call
      */
     public function store(Request $request)
     {
@@ -23,18 +24,34 @@ class CallsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Call
      */
     public function update(Request $request, $id)
     {
         $call = Call::query()->find($id);
 
-        $call->update($request->all());
+        if($call)
+        {
+            $call->update($request->all());
+        }
 
         return $call;
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function destroy($id)
+    {
+        Call::destroy($id);
 
+        return "The operator has removed successfully.";
+    }
 }

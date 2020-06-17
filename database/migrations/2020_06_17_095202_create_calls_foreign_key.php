@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Operator;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperatorsTable extends Migration
+class CreateCallsForeignKey extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,8 @@ class CreateOperatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('operators', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('priority')->default(Operator::PRIORITY_MEDIUM);
-            $table->timestamps();
+        Schema::table('calls', function (Blueprint $table) {
+            $table->foreign('operator_id')->references('id')->on('operators')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateOperatorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operators');
+        Schema::table('calls', function (Blueprint $table) {
+            $table->dropForeign('calls_operator_id_foreign');
+        });
     }
 }

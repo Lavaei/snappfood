@@ -64,4 +64,12 @@ class Operator extends BaseModel
                      ->orderBy('priority', 'DESC')
                      ->get();
     }
+
+    public function isBusy()
+    {
+        return static::query()->whereHas('call', function($callQuery){
+            $callQuery->where('operator_id', $this->id)
+                      ->where('isOpen', true);
+        })->exists();
+    }
 }
