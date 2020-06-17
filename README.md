@@ -7,9 +7,8 @@
 0. Execute `php artisan migrate` to create tables in the given database.
 
 ### How to run
-0. Execute `php artisan snapp:call` in the root directory. You can use `php artisan snapp:call --random` to
- assign calls to operators with same priority randomly (This algorithm is fair, but consumes more resources).
-0. Use below API to interact with application. You should see the output in `stdout` of `php artisan snapp:call
+0. Execute `php artisan snapp:call` in the root directory. You can use `php artisan snapp:call --random` to assign calls to operators with same priority randomly (This algorithm is fair, but consumes more resources).
+0. Use the below API to interact with the application (There are more APIs but the question just asks these APIs). You should see the output in `stdout` of `php artisan snapp:call
 ` command. 
 
     0. Create new call with given priority (1 means low, 2 means high)
