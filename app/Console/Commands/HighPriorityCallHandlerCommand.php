@@ -17,7 +17,8 @@ class HighPriorityCallHandlerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'snapp:call';
+    protected $signature = 'snapp:call
+                            {--r|random : Choose free operator randomly}';
 
     /**
      * The console command description.
@@ -128,7 +129,7 @@ class HighPriorityCallHandlerCommand extends Command
                     /**
                      * Get a free operator
                      */
-                    $operator = Operator::getFreeOperator();
+                    $operator = $this->option('random') ? Operator::getRandomFreeOperator() : Operator::getFreeOperator();
 
                     /**
                      * If call and operator has set properly, assign call to operator.

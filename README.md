@@ -7,7 +7,8 @@
 0. Execute `php artisan migrate` to create tables in the given database.
 
 ### How to run
-0. Execute `php artisan snapp:call` in the root directory.
+0. Execute `php artisan snapp:call` in the root directory. You can use `php artisan snapp:call --random` to
+ assign calls to operators with same priority randomly (This algorithm is fair, but consumes more resources).
 0. Use below API to interact with application. You should see the output in `stdout` of `php artisan snapp:call
 ` command. 
 

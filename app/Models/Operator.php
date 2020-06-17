@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Redis;
 
 /**
- * @property int   id
+ * @property int id
  */
 class Operator extends BaseModel
 {
@@ -18,7 +18,7 @@ class Operator extends BaseModel
     protected $guarded = [
         'id',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
@@ -43,6 +43,7 @@ class Operator extends BaseModel
     }
 
     /**
+     * Get first free operator depend on their prioriry
      * @return Operator
      */
     public static function getFreeOperator()
@@ -53,6 +54,37 @@ class Operator extends BaseModel
                      ->whereNotIn('id', $busyOperators)
                      ->orderBy('priority', 'DESC')
                      ->first();
+    }
+
+    /**
+     * Get a random free operator depend on their priority
+     * @return Operator
+     */
+    public static function getRandomFreeOperator()
+    {
+        /**
+         * Get list of busy operators IDs
+         */
+        $busyOperators = Call::getBusyOperators();
+
+        /**
+         * Get all free operators
+         */
+        $operators = static::query()
+                           ->whereNotIn('id', $busyOperators)
+                           ->orderBy('priority', 'DESC')
+                           ->get();
+
+        /**
+         * If there is no free operator, return null
+         */
+        if($operators->count() === 0)
+            return null;
+
+        /**
+         * Choose one operator randomly
+         */
+        return $operators->where('priority', $operators->first()->priority)->random();
     }
 
     public static function getFreeOperators()
@@ -67,9 +99,12 @@ class Operator extends BaseModel
 
     public function isBusy()
     {
-        return static::query()->whereHas('call', function($callQuery){
-            $callQuery->where('operator_id', $this->id)
-                      ->where('isOpen', true);
-        })->exists();
+        return static::query()->whereHas(
+            'call',
+            function($callQuery) {
+                $callQuery->where('operator_id', $this->id)
+                          ->where('isOpen', true);
+            }
+        )->exists();
     }
 }
